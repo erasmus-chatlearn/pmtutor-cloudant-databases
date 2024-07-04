@@ -12,10 +12,33 @@ This repository provides information on the design of PMTutor databases and pyth
 
 ## Conceptual data model
 Introduce high-level data model
+
 ## IBM Cloudant
-Introduce cloudant and share links to cloudant documentations
+IBM Cloudant was chosen for the database implementation. It is a fully managed and distributed document database service designed 
+for heavy workloads and fast-growing web and mobile applications. It offers elastic scalability for both throughput and 
+storage, ensuring high availability. Cloudant is API-compatible with Apache CouchDB, facilitating hybrid and multicloud
+architectures. Key features include data encryption, global data distribution for disaster recovery, and support for 
+various programming languages, including Java, Node.js, Python, and Swift. Ideal for serverless and mobile applications, 
+Cloudant ensures seamless data synchronization and high performance.
+
+Cloudant's indexing feature supports advanced query capabilities, allowing efficient searches across large datasets. 
+It enables developers to create indexes for faster retrieval of documents based on specified criteria. This feature is 
+crucial for optimizing performance in applications that require complex querying and real-time data access.
+
+Databases can be managed by authorized users through a web browser in addition to programming scripts. Below shows an example of querying 
+all exercises by a learning topic, Earned Valued Management, through a browser.
+![Cloudant web UI](./images/cloudant-1.png)
+
+During the project, databases were managed through both programming scripts and web browser.
+
+Below are useful links for working with the database service:
+- [General information](https://www.ibm.com/products/cloudant)
+- [Service documentation](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-getting-started-with-cloudant)
+- [API documentation](https://cloud.ibm.com/apidocs/cloudant)
+
 ## Physical data model
 Introduce the physical data model implemented
+
 ## Prerequisites for creating databases
 - IBM Cloudant service
 - Python 3.10
