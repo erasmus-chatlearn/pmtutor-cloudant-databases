@@ -4,14 +4,19 @@ This repository provides information on the design of PMTutor databases and pyth
 ## Table of Contents
 - [Conceptual data model](#conceptual-data-model)
 - [IBM Cloudant](#ibm-cloudant)
-- [Pysical data model](#physical-data-model)
+- [Physical data models](#physical-data-models)
 - [Prerequisites for creating databases](#prerequisites-for-creating-databases)
 - [Python scripts (Windows)](#python-scripts-windows)
 - [Python scripts (Ubuntu)](#python-scripts-ubuntu)
+- [After creating databases](#after-creating-databases)
 - [License](#license)
 
 ## Conceptual data model
-Introduce high-level data model
+The data models were designed iteratively and incrementally during the project&mdash;requirements inform and update the 
+conceptual data model. Based on the conceptual data model, physical data models are elaborated and might further update the conceptual model.
+A diagram tool, [draw.io](https://www.drawio.com/) was used for data modeling and other design activities. The figure below shows 
+the latest conceptual data model, which facilitates the majority of [PMTutor use cases](https://github.com/erasmus-chatlearn/pmtutor-watsonx-assistant-configurations/blob/main/README.md).
+![PMTutor conceptual data model](./data-models/images/pmtutor-conceptual-data-model-2024-0705.png)
 
 ## IBM Cloudant
 IBM Cloudant was chosen for the database implementation. It is a fully managed and distributed document database service designed 
@@ -36,8 +41,27 @@ Below are useful links for working with the database service:
 - [Service documentation](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-getting-started-with-cloudant)
 - [API documentation](https://cloud.ibm.com/apidocs/cloudant)
 
-## Physical data model
-Introduce the physical data model implemented
+## Physical data models
+PMTutor physical data models are foundational&mdash;they dictate required data structures and document relations for
+[the content management tool set](https://github.com/erasmus-chatlearn/pmtutor-content-management) when parsing configurations, 
+and for [the webhook middleware](https://github.com/erasmus-chatlearn/pmtutor-webhook) when storing data during a user session.  
+The data models were designed considering PMTutor requirements and [the best practices for IBM Cloudant](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-data-modeling).
+It was decided in the early phase of project by the development team to store data in 4 databases, one for each of the 
+following purpose: learning content, user profile, user session events, and feedback. To assist data management and 
+further database development, the latest physical data model diagram for each database is collected in this section. These diagrams
+depict all possible document types you may find in PMTutor databases.
+
+### Physical data model for learning content database
+![Physical data model for learning content database](./data-models/images/pmtutor-physical-data-model-learning-content-2024-0705.png)
+
+### Physical data model for user profile database
+![Physical data model for user profile database](./data-models/images/pmtutor-physical-data-model-user-profile-2024-0705.png)
+
+### Physical data model for user session events database
+![Physical data model for user session events database](./data-models/images/pmtutor-physical-data-model-user-session-events-2024-0705.png)
+
+### Physical data model for feedback database
+![Physical data model for feedack database](./data-models/images/pmtutor-physical-data-model-feedback-2024-0705.png)
 
 ## Prerequisites for creating databases
 - IBM Cloudant service
@@ -99,6 +123,12 @@ For example, you could create a learning content database for development or tes
 # It will abort if the arguments are not valid
 python scripts/create_pmtutor_database.py 'learning_content' 'topics-dev'
 ```
+## After creating databases
+- To upload configurations to the newly created learning content database, you might need to update the database name environment variable 
+in [the content management tool](https://github.com/erasmus-chatlearn/pmtutor-content-management).
+- For PMTutor watsonx assistant to access newly created databases, you might need to update the variables of database names in
+the intended webhook file if the new database names are different from the file, 
+e.g., [the latest dev version webhook file](https://github.com/erasmus-chatlearn/pmtutor-webhook/blob/main/services/webhooks/dialog/dialog_2024-0312-dev.js).
 
 ## License
 MIT
